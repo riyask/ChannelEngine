@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package>
+    <metadata>
+        <id>ChannelEngineApiClient</id>
+        <version>$version$</version>
+        <authors>Channel Engine</authors>
+        <owners>Channel Engine</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <summary>
+			Channel Engine ApiClient
+		</summary>
+        <description>Channel Engine ApiClient</description>
+        <projectUrl>https://github.com/</projectUrl>
+        <releaseNotes>Channel Engine ApiClient initial version</releaseNotes>
+        <copyright>Channel Engine ApiClient</copyright>
+        <tags>ChannelEngineApiClient</tags>
+        <dependencies>
+			
+        </dependencies>
+    </metadata>
+    <files>
+       
+    </files>
+</package>
