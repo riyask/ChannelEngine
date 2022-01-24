@@ -1,3 +1,6 @@
+using ChannelEngineBusiness.Business;
+using ChannelEngineConfiguration;
+using ChannelEngineWeb.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -12,17 +15,21 @@ namespace ChannelEngineWeb
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
+        public Configuration ChannelEngineConfiguration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            ChannelEngineConfiguration = configuration.GetConfiguration();
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddSingleton<IOrderDetails, OrderDetails>()
+                .AddSingleton<IOrderManagement>(s => new OrderManagement(ChannelEngineConfiguration.Environment)
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

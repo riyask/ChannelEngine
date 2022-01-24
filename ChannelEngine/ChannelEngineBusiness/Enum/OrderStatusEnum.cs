@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChannelEngineBusiness
+namespace ChannelEngineBusiness.Enum
 {
-    interface IOrderManagement
+    enum Status
     {
+        IN_PROGRESS
     }
 }
