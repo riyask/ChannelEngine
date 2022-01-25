@@ -1,0 +1,64 @@
+﻿@{
+    ViewData["Title"] = "Products";
+    @model List<ChannelEngineBusiness.Models.Products>;
+}
+
+<div>
+    <h2 class="display">Products</h2>
+    <div id="Message" class="alert alert-primary" role="alert">
+    </div>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>SINo.</th>
+                <th>Product Name</th>
+                <th>GTIN</th>
+                <th>Total Quantity</th>
+                <th>Update Stock to 25</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                string test2 = "test1";
+                <tr>
+                    <td>@product.SlNo</td>
+                    <td>@product.Product</td>
+                    <td>@product.Gtin</td>
+                    <td>@product.Quantity</td>
+                    <td>
+                        <button id="btnUpdate" onClick="updateStock(this)" type="button"
+                                class="btn btn-info" data-assigned-id="@product.MerchantProductNo">
+                            Update
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    function updateStock(elm) {
+        var mr = $(elm).data('assigned-id');
+        var product = { MerchantProductNo: mr, Stock: 25 };
+        $.ajax({
+            contentType: 'application/json',
+            url: "Product/UpdateStock",
+            type: "PUT",
+            data: JSON.stringify(product),
+            success: function (response) {
+                if (response.success) {
+                    $('#Message').show();
+                    $('#Message').html("The stock updated succesfully!!");
+                    $('#Message').delay(5000).fadeOut('slow');
+                }
+            },
+            error: function (x, y, z) {
+                console.log('error ' + y);
+            }
+        });
+    }
+    $(function () {
+        $('#Message').hide();
+    });
+</script>

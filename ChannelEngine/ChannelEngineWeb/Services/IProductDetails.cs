@@ -10,5 +10,6 @@ namespace ChannelEngineWeb.Services
     public interface IProductDetails
     {
         List<Products> GetProductsSold();
+        UpdateStockResponse updateProducts(List<ProductStock> products);
     }
 }

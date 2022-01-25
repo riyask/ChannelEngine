@@ -21,6 +21,11 @@ namespace ChannelEngineWeb.Services
             return products;
             
         }
+        public UpdateStockResponse updateProducts(List<ProductStock> products)
+        {
+            var response = _orderManagement.UpdateStockByProduct(products);
+            return response;
+        }
     }
 
     
