@@ -13,17 +13,17 @@ namespace ChannelEngineWeb.Controllers
     public class OrderController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IOrderDetails _orderDetails;
+        private readonly IProductDetails _productDetails;
 
-        public OrderController(ILogger<HomeController> logger, IOrderDetails orderDetails )
+        public OrderController(ILogger<HomeController> logger, IProductDetails _productDetails)
         {
             _logger = logger;
-            _orderDetails = orderDetails;
+            _productDetails = _productDetails;
         }
 
         public IActionResult Index()
         {
-            var orders= _orderDetails.GetAllOrders();
+            var orders= _productDetails.GetProductsSold();
             return View();
         }
 

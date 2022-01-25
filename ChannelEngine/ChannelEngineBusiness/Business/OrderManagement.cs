@@ -19,20 +19,57 @@ namespace ChannelEngineBusiness.Business
         public OrderManagement(ChannelEngineConfiguration.Environment environment) : base(environment)
         {
         }
-        public List<ProductSold> GetAllOrders()
+        public List<Content> GetAllOrders()
         {
-            var result = Task.Run(async () => await GetAllOrdersAsync()).Result;
-            return result;
+            var orders = Task.Run(async () => await GetAllOrdersAsync()).Result;
+            return orders;
         }
-        private async Task<List<ProductSold>> GetAllOrdersAsync()
+        private async Task<List<Content>> GetAllOrdersAsync()
         {
-            HttpClient client = new HttpClient();
-            var result = await client.GetAsync($"{BaseUri}api/v2/orders?statuses={Status.IN_PROGRESS}&apikey={ApiKey}").ConfigureAwait(false);
-            var response = result.Content.ReadAsStringAsync().Result;
-            var orders = JsonConvert.DeserializeObject<Order>(response);
-            var lines = orders.Content.SelectMany(f => f.Lines);
-            var products = lines.GroupBy(g => new { g.MerchantProductNo }).Select((h, i) => new ProductSold { SlNo = i + 1, Product = h.FirstOrDefault().Description, Gtin = h.FirstOrDefault().Gtin, MerchantProductNo = h.Key.MerchantProductNo, Quantity = h.Sum(j => j.Quantity) });
+            try
+            {
+                HttpClient client = new HttpClient();
+                var result = await client.GetAsync($"{BaseUri}api/v2/orders?statuses={Status.IN_PROGRESS}&apikey={ApiKey}").ConfigureAwait(false);
+                var response = result.Content.ReadAsStringAsync().Result;
+                var orders = JsonConvert.DeserializeObject<Order>(response);
+                return orders.Content;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public List<Products> GetProducts()
+        {
+            var orders = GetAllOrders();
+            var lines = orders.SelectMany(f => f.Lines);
+            var products = lines.GroupBy(g => new { g.MerchantProductNo }).Select((h, i) => new Products { SlNo = i + 1, Product = h.FirstOrDefault().Description, Gtin = h.FirstOrDefault().Gtin, MerchantProductNo = h.Key.MerchantProductNo, Quantity = h.Sum(j => j.Quantity) });
             return products.OrderByDescending(g => g.Quantity).Take(5).ToList();
+        }
+
+        public UpdateStockResponse UpdateStockByProduct(List<ProductStock> product)
+        {
+            var response = Task.Run(async () => await UpdateStockByProductSync(product)).Result;
+            return response;
+        }
+
+        private async Task<UpdateStockResponse> UpdateStockByProductSync(List<ProductStock> product)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+                var productToUpdate = System.Text.Json.JsonSerializer.Serialize(product);
+                var content = new StringContent(productToUpdate, Encoding.UTF8, "application/json");
+                var result = await client.PutAsync($"{BaseUri}api/v2/offer?apikey={ApiKey}", content).ConfigureAwait(false);
+                var responseData = result.Content.ReadAsStringAsync().Result;
+                var response = JsonConvert.DeserializeObject<UpdateStockResponse>(responseData);
+                return response;
+            }
+            catch(Exception ex)
+            {
+                throw ;
+            }
         }
     }
 }

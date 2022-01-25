@@ -27,7 +27,7 @@ namespace ChannelEngineWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddSingleton<IOrderDetails, OrderDetails>()
+            services.AddSingleton<IProductDetails, ProductDetails>()
                 .AddSingleton<IOrderManagement>(s => new OrderManagement(ChannelEngineConfiguration.Environment)
             );
         }

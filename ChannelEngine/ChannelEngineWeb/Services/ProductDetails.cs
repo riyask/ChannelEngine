@@ -8,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace ChannelEngineWeb.Services
 {
-    public class OrderDetails :IOrderDetails
+    public class ProductDetails :IProductDetails
     {
         private readonly IOrderManagement _orderManagement;
-        public OrderDetails(IOrderManagement orderManagement)
+        public ProductDetails(IOrderManagement orderManagement)
         {
             _orderManagement = orderManagement;
         }
-        public List<ProductSold> GetAllOrders()
+        public List<Products> GetProductsSold()
         {
-            var result= _orderManagement.GetAllOrders();
-            return result;
+            var products= _orderManagement.GetProducts();
+            return products;
+            
         }
     }
 

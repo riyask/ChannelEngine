@@ -9,6 +9,8 @@ namespace ChannelEngineBusiness.Business
 {
     public interface IOrderManagement
     {
-        List<ProductSold> GetAllOrders();
+        List<Content> GetAllOrders();
+        List<Products> GetProducts();
+        UpdateStockResponse UpdateStockByProduct(List<ProductStock> products);
     }
 }

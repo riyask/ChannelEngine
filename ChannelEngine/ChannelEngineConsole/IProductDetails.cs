@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChannelEngineWeb.Services
+namespace ChannelEngineConsole
 {
-    public interface IOrderDetails
+    public interface IProductDetails
     {
-        List<ProductSold> GetAllOrders();
+        void ViewProducts();
+        UpdateStockResponse updateProducts(List<ProductStock> products);
     }
 }
