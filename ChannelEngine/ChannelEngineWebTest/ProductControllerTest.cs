@@ -10,17 +10,32 @@ using System.Net;
 
 namespace ChannelEngineWebTest
 {
+    /// <summary>
+    /// class ProductControllerTest
+    /// </summary>
     [TestClass]
     public class ProductControllerTest
     {
+        /// <summary>
+        /// The mock product details
+        /// </summary>
         private readonly Mock<IProductDetails> _mockProductDetails;
+        /// <summary>
+        /// The controller
+        /// </summary>
         private readonly ProductController _controller;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductControllerTest"/> class.
+        /// </summary>
         public ProductControllerTest()
         {
             _mockProductDetails = new Mock<IProductDetails>();
             _controller = new ProductController(_mockProductDetails.Object);
         }
 
+        /// <summary>
+        /// Products the controller action product details.
+        /// </summary>
         [TestMethod]
         public void ProductController_Action_ProductDetails()
         {
@@ -45,6 +60,9 @@ namespace ChannelEngineWebTest
             Assert.AreEqual(products.Last().Product, ((IEnumerable<Products>)result.Model).Last().Product);
         }
 
+        /// <summary>
+        /// Products the controller action update stock.
+        /// </summary>
         [TestMethod]
         public void ProductController_Action_UpdateStock()
         {
@@ -60,6 +78,9 @@ namespace ChannelEngineWebTest
             Assert.AreEqual(result.StatusCode, true);
         }
 
+        /// <summary>
+        /// Products the controller action update stock failure.
+        /// </summary>
         [TestMethod]
         public void ProductController_Action_UpdateStock_Failure()
         {

@@ -13,17 +13,34 @@ using ChannelEngineBusiness.Enum;
 
 namespace ChannelEngineBusiness.Business
 {
+    /// <summary>
+    /// Class for Order Management
+    /// </summary>
+    /// <seealso cref="ChannelEngineBusiness.ChannelEngineBusinessBase" />
+    /// <seealso cref="ChannelEngineBusiness.Business.IOrderManagement" />
     public class OrderManagement : ChannelEngineBusinessBase, IOrderManagement
     {
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrderManagement"/> class.
+        /// </summary>
+        /// <param name="environment">The environment.</param>
         public OrderManagement(ChannelEngineConfiguration.Environment environment) : base(environment)
         {
         }
+        /// <summary>
+        /// Gets all orders.
+        /// </summary>
+        /// <returns></returns>
         public List<Content> GetAllOrders()
         {
             var orders = Task.Run(async () => await GetAllOrdersAsync()).Result;
             return orders;
         }
+        /// <summary>
+        /// Gets all orders asynchronous.
+        /// </summary>
+        /// <returns></returns>
         private async Task<List<Content>> GetAllOrdersAsync()
         {
             try
@@ -40,6 +57,10 @@ namespace ChannelEngineBusiness.Business
             }
         }
 
+        /// <summary>
+        /// Gets the products.
+        /// </summary>
+        /// <returns></returns>
         public List<Products> GetProducts()
         {
             var orders = GetAllOrders();
@@ -48,12 +69,22 @@ namespace ChannelEngineBusiness.Business
             return products.OrderByDescending(g => g.Quantity).Take(5).ToList();
         }
 
+        /// <summary>
+        /// Updates the stock by product.
+        /// </summary>
+        /// <param name="product"></param>
+        /// <returns></returns>
         public UpdateStockResponse UpdateStockByProduct(List<ProductStock> product)
         {
             var response = Task.Run(async () => await UpdateStockByProductSync(product)).Result;
             return response;
         }
 
+        /// <summary>
+        /// Updates the stock by product synchronize.
+        /// </summary>
+        /// <param name="product">The product.</param>
+        /// <returns></returns>
         private async Task<UpdateStockResponse> UpdateStockByProductSync(List<ProductStock> product)
         {
             try

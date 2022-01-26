@@ -15,8 +15,15 @@ using System.Linq;
 
 namespace ChannelEngineConsole
 {
+    /// <summary>
+    /// Program Class
+    /// </summary>
     class Program
     {
+        /// <summary>
+        /// Defines the entry point of the application.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
         public static void Main(string[] args)
         {
             var configuration = new ConfigurationBuilder()
@@ -27,6 +34,12 @@ namespace ChannelEngineConsole
             ViewProducts(host.Services);
         }
 
+        /// <summary>
+        /// Creates the host builder.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <param name="configuration">The configuration.</param>
+        /// <returns></returns>
         private static IHostBuilder CreateHostBuilder(string[] args, IConfiguration configuration)
         {
             var config = ChannelEngineConfiguration.ConfigurationExtensions.GetConfiguration(configuration);
@@ -39,6 +52,10 @@ namespace ChannelEngineConsole
                     );
         }
 
+        /// <summary>
+        /// Views the products.
+        /// </summary>
+        /// <param name="services">The services.</param>
         private static void ViewProducts(IServiceProvider services)
         {
             using var serviceScope = services.CreateScope();

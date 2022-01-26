@@ -9,8 +9,16 @@ using Microsoft.Extensions.Options;
 
 namespace ChannelEngineConfiguration
 {
+    /// <summary>
+    /// Class for ConfigurationExtensions
+    /// </summary>
     public static class ConfigurationExtensions
     {
+        /// <summary>
+        /// Gets the configuration.
+        /// </summary>
+        /// <param name="configuration">The configuration.</param>
+        /// <returns></returns>
         public static Configuration GetConfiguration(this IConfiguration configuration)
         {
             var section = configuration.GetSection("ChannelEngine");

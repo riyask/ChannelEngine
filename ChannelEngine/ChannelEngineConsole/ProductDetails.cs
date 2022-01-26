@@ -8,23 +8,45 @@ using System.Threading.Tasks;
 
 namespace ChannelEngineConsole
 {
+    /// <summary>
+    /// Calss for IProductDetails
+    /// </summary>
+    /// <seealso cref="ChannelEngineConsole.IProductDetails" />
     public class ProductDetails : IProductDetails
     {
+        /// <summary>
+        /// The order management
+        /// </summary>
         private readonly IOrderManagement _orderManagement;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProductDetails"/> class.
+        /// </summary>
+        /// <param name="orderManagement">The order management.</param>
         public ProductDetails(IOrderManagement orderManagement)
         {
             _orderManagement = orderManagement;
         }
+        /// <summary>
+        /// Views the products.
+        /// </summary>
         public void ViewProducts()
         {
             var products = GetProducts();
             displayProducts(products);
         }
 
+        /// <summary>
+        /// Gets the products.
+        /// </summary>
+        /// <returns></returns>
         public List<Products> GetProducts()
         {
             return _orderManagement.GetProducts();            
         }
+        /// <summary>
+        /// Displays the products.
+        /// </summary>
+        /// <param name="products">The products.</param>
         private void displayProducts(List<Products> products)
         {
             try
@@ -66,12 +88,22 @@ namespace ChannelEngineConsole
             }
         }
 
+        /// <summary>
+        /// Updates the products.
+        /// </summary>
+        /// <param name="products">The products.</param>
+        /// <returns></returns>
         public UpdateStockResponse updateProducts(List<ProductStock> products)
         {
             var response = _orderManagement.UpdateStockByProduct(products);
             return response;
         }
 
+        /// <summary>
+        /// Displays the update message.
+        /// </summary>
+        /// <param name="response">The response.</param>
+        /// <param name="product">The product.</param>
         private void displayUpdateMessage(UpdateStockResponse response, Products product)
         {
             if (product != null)
