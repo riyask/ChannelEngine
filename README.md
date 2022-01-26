@@ -13,6 +13,8 @@ Technicals
 6. ChannelEngineWebTest - Test for web application
 
 Used follwing things to develop this application
-1. Dependency Injection
-2. Async await in ChannelEngineBusiness
-3. MSTest Framework and moq for unit testing
+1. IDE- Visual Studio 2019
+2. .Net 5.0
+3. Dependency Injection
+4. Async await in ChannelEngineBusiness
+5. MSTest Framework and moq for unit testing
