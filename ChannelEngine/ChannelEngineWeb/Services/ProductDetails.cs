@@ -26,6 +26,7 @@ namespace ChannelEngineWeb.Services
             var response = _orderManagement.UpdateStockByProduct(products);
             return response;
         }
+        
     }
 
     

@@ -13,16 +13,14 @@ namespace ChannelEngineWeb.Controllers
 {
     public class ProductController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IProductDetails _productDetails;
 
-        public ProductController(ILogger<HomeController> logger, IProductDetails productDetails)
+        public ProductController(IProductDetails productDetails)
         {
-            _logger = logger;
             _productDetails = productDetails;
         }
 
-        public IActionResult Index()
+        public ViewResult Index()
         {
             var products = _productDetails.GetProductsSold();
             return View(products);

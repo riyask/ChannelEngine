@@ -17,8 +17,13 @@ namespace ChannelEngineConsole
         }
         public void ViewProducts()
         {
-            var products = _orderManagement.GetProducts();
+            var products = GetProducts();
             displayProducts(products);
+        }
+
+        public List<Products> GetProducts()
+        {
+            return _orderManagement.GetProducts();            
         }
         private void displayProducts(List<Products> products)
         {
